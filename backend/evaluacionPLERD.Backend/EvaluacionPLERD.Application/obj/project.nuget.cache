@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "oXlij9Z1xDs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\enman\\Desktop\\evaluacionPLERD\\backend\\evaluacionPLERD.Backend\\EvaluacionPLERD.Application\\EvaluacionPLERD.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\enman\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.4\\microsoft.extensions.dependencyinjection.abstractions.9.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}

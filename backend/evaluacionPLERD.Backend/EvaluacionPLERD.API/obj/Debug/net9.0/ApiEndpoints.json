@@ -1,0 +1,388 @@
+[
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ModelosController",
+    "Method": "GetAll",
+    "RelativePath": "api/Modelos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ModelosController",
+    "Method": "Crear",
+    "RelativePath": "api/Modelos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.CrearModeloDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ModelosController",
+    "Method": "GetById",
+    "RelativePath": "api/Modelos/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ModelosController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Modelos/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipantesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Participantes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idModelo",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "nombres",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "apellidos",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "numeracionPLERD",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipantesController",
+    "Method": "Crear",
+    "RelativePath": "api/Participantes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.CrearParticipanteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipantesController",
+    "Method": "GetById",
+    "RelativePath": "api/Participantes/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipantesController",
+    "Method": "Editar",
+    "RelativePath": "api/Participantes/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.EditarParticipanteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipantesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Participantes/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.CalificacionesController",
+    "Method": "Get",
+    "RelativePath": "api/participantes/{idParticipante}/calificaciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.CalificacionesController",
+    "Method": "Editar",
+    "RelativePath": "api/participantes/{idParticipante}/calificaciones",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.EditarCalificacionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.FeedbacksController",
+    "Method": "Get",
+    "RelativePath": "api/participantes/{idParticipante}/feedback",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.FeedbacksController",
+    "Method": "Editar",
+    "RelativePath": "api/participantes/{idParticipante}/feedback",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.EditarFeedbackDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipacionesController",
+    "Method": "Get",
+    "RelativePath": "api/participantes/{idParticipante}/participaciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipacionesController",
+    "Method": "Restar",
+    "RelativePath": "api/participantes/{idParticipante}/participaciones/restar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ParticipacionesController",
+    "Method": "Sumar",
+    "RelativePath": "api/participantes/{idParticipante}/participaciones/sumar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.PaseListaController",
+    "Method": "GetBySesion",
+    "RelativePath": "api/paselista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idSesionTrabajo",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.PaseListaController",
+    "Method": "ActualizarEstado",
+    "RelativePath": "api/paselista/{idSesionTrabajo}/{idParticipante}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idSesionTrabajo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.ActualizarPaseListaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.SesionesTrabajoController",
+    "Method": "GetAll",
+    "RelativePath": "api/sesionestrabajo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idModelo",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.SesionesTrabajoController",
+    "Method": "Create",
+    "RelativePath": "api/sesionestrabajo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.CrearSesionTrabajoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.SesionesTrabajoController",
+    "Method": "GetById",
+    "RelativePath": "api/sesionestrabajo/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.SesionesTrabajoController",
+    "Method": "Delete",
+    "RelativePath": "api/sesionestrabajo/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -1,0 +1,27 @@
+# === Arquectura .NET ===
+[Bb]in/
+[Ob]j/
+out/
+
+# === Visual Studio ===
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# === Bases de Datos / Entity Framework ===
+*.db
+*.db-shm
+*.db-wal
+Migrations/
+
+# === Entorno / Secretos ===
+.env
+appsettings.Development.json
+appsettings.Local.json
+appsettings.json
+backend/evaluacionPLERD.Backend/EvaluacionPLERD.API/appsettings.json
+
+# === Configuraciones de Herramientas ===
+.claude/settings.local.json
