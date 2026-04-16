@@ -32,13 +32,13 @@ public class SesionTrabajoService(
         var creada = await sesionRepo.CreateAsync(sesion);
 
         // Inicializar pase de lista con todos los participantes del modelo (todos Ausente)
-        var participantes = await participanteRepo.GetAllAsync(dto.IdModelo, null, null, null);
+        var participantes = await participanteRepo.GetAllAsync(dto.IdModelo, null, null, null, null);
         var pases = participantes.Select(p => new PaseLista
         {
             IdSesionTrabajo    = creada.Id,
             IdParticipante     = p.Id,
             NumSesionTrabajo   = creada.NumSesionTrabajo,
-            NumeracionPLERD    = p.NumeracionPLERD,
+            Numeracion         = p.Numeracion,
             NombreParticipante = $"{p.Nombres} {p.Apellidos}",
             EstadoPresencia    = "Ausente",
         });

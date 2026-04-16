@@ -4,6 +4,6 @@ namespace EvaluacionPLERD.Application.Interfaces;
 
 public interface ICalificacionService
 {
-    Task<CalificacionResponseDto?> GetByParticipanteIdAsync(int idParticipante);
-    Task<CalificacionResponseDto?> UpdateAsync(int idParticipante, EditarCalificacionDto dto);
+    Task<CalificacionResponseDto?> GetByParticipanteIdAsync(int idParticipante, int idVoluntario);
+    Task<CalificacionResponseDto?> UpdateAsync(int idParticipante, int idVoluntario, EditarCalificacionDto dto);
 }

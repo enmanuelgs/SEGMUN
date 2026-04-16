@@ -10,9 +10,9 @@ public class ParticipanteService(
     ISesionTrabajoRepository sesionRepo,
     IPaseListaRepository paseRepo) : IParticipanteService
 {
-    public async Task<IEnumerable<ParticipanteResponseDto>> GetAllAsync(int? idModelo, string? nombres, string? apellidos, string? numeracionPLERD)
+    public async Task<IEnumerable<ParticipanteResponseDto>> GetAllAsync(int? idModelo, int? idComision, string? nombres, string? apellidos, string? numeracion)
     {
-        var participantes = await repository.GetAllAsync(idModelo, nombres, apellidos, numeracionPLERD);
+        var participantes = await repository.GetAllAsync(idModelo, idComision, nombres, apellidos, numeracion);
         return participantes.Select(ToDto);
     }
 
@@ -26,10 +26,19 @@ public class ParticipanteService(
     {
         var participante = new Participante
         {
-            IdModelo        = dto.IdModelo,
-            NumeracionPLERD = dto.NumeracionPLERD,
-            Nombres         = dto.Nombres,
-            Apellidos       = dto.Apellidos,
+            IdModelo       = dto.IdModelo,
+            IdComision     = dto.IdComision,
+            Numeracion     = dto.Numeracion,
+            NoRegistro     = dto.NoRegistro,
+            Representacion = dto.Representacion,
+            Nombres        = dto.Nombres,
+            Apellidos      = dto.Apellidos,
+            NumeroTelefono = dto.NumeroTelefono,
+            Correo         = dto.Correo,
+            Regional       = dto.Regional,
+            Distrito       = dto.Distrito,
+            CentroEducativo = dto.CentroEducativo,
+            LlaveUnica      = dto.LlaveUnica,
         };
         var creado = await repository.CreateAsync(participante);
 
@@ -42,7 +51,7 @@ public class ParticipanteService(
                 IdSesionTrabajo    = s.Id,
                 IdParticipante     = creado.Id,
                 NumSesionTrabajo   = s.NumSesionTrabajo,
-                NumeracionPLERD    = creado.NumeracionPLERD,
+                Numeracion         = creado.Numeracion,
                 NombreParticipante = $"{creado.Nombres} {creado.Apellidos}",
                 EstadoPresencia    = "Ausente",
             });
@@ -60,14 +69,41 @@ public class ParticipanteService(
         if (dto.IdModelo.HasValue)
             participante.IdModelo = dto.IdModelo.Value;
 
+        if (dto.IdComision.HasValue)
+            participante.IdComision = dto.IdComision.Value;
+
         if (!string.IsNullOrWhiteSpace(dto.Nombres))
             participante.Nombres = dto.Nombres;
 
         if (!string.IsNullOrWhiteSpace(dto.Apellidos))
             participante.Apellidos = dto.Apellidos;
 
-        if (dto.NumeracionPLERD is not null)
-            participante.NumeracionPLERD = dto.NumeracionPLERD;
+        if (dto.Numeracion is not null)
+            participante.Numeracion = dto.Numeracion;
+
+        if (dto.NoRegistro.HasValue)
+            participante.NoRegistro = dto.NoRegistro.Value;
+
+        if (dto.Representacion is not null)
+            participante.Representacion = dto.Representacion;
+
+        if (dto.NumeroTelefono is not null)
+            participante.NumeroTelefono = dto.NumeroTelefono;
+
+        if (dto.Correo is not null)
+            participante.Correo = dto.Correo;
+
+        if (dto.Regional is not null)
+            participante.Regional = dto.Regional;
+
+        if (dto.Distrito is not null)
+            participante.Distrito = dto.Distrito;
+
+        if (dto.CentroEducativo is not null)
+            participante.CentroEducativo = dto.CentroEducativo;
+
+        if (dto.LlaveUnica is not null)
+            participante.LlaveUnica = dto.LlaveUnica;
 
         await repository.UpdateAsync(participante);
         return true;
@@ -84,10 +120,19 @@ public class ParticipanteService(
 
     private static ParticipanteResponseDto ToDto(Participante p) => new()
     {
-        Id              = p.Id,
-        IdModelo        = p.IdModelo,
-        NumeracionPLERD = p.NumeracionPLERD,
-        Nombres         = p.Nombres,
-        Apellidos       = p.Apellidos,
+        Id             = p.Id,
+        IdModelo       = p.IdModelo,
+        IdComision     = p.IdComision,
+        Numeracion     = p.Numeracion,
+        NoRegistro     = p.NoRegistro,
+        Representacion = p.Representacion,
+        Nombres        = p.Nombres,
+        Apellidos      = p.Apellidos,
+        NumeroTelefono = p.NumeroTelefono,
+        Correo         = p.Correo,
+        Regional       = p.Regional,
+        Distrito       = p.Distrito,
+        CentroEducativo = p.CentroEducativo,
+        LlaveUnica      = p.LlaveUnica,
     };
 }

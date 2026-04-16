@@ -91,6 +91,12 @@ export default function FeedbackModal({ participante, onCerrar }) {
                   value={comentario}
                   onChange={handleChange}
                   placeholder="Escribe el feedback del participante..."
+                  onKeyDown={e => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                      e.preventDefault();
+                      guardar(comentarioRef.current);
+                    }
+                  }}
                 />
                 <div className="d-flex justify-content-between align-items-center mt-2">
                   <span className="text-secondary small fst-italic">

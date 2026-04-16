@@ -1,0 +1,12 @@
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\bin\Release\net9.0\EvaluacionPLERD.Domain.deps.json
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\bin\Release\net9.0\EvaluacionPLERD.Domain.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\bin\Release\net9.0\EvaluacionPLERD.Domain.pdb
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\EvaluacionPLERD.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\EvaluacionPLERD.Domain.AssemblyInfoInputs.cache
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\EvaluacionPLERD.Domain.AssemblyInfo.cs
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\EvaluacionPLERD.Domain.csproj.CoreCompileInputs.cache
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\EvaluacionPLERD.Domain.sourcelink.json
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\EvaluacionPLERD.Domain.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\refint\EvaluacionPLERD.Domain.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\EvaluacionPLERD.Domain.pdb
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Domain\obj\Release\net9.0\ref\EvaluacionPLERD.Domain.dll

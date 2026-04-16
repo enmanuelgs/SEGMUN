@@ -28,4 +28,22 @@ public class CalificacionResponseDto
     public short? Liderazgo { get; set; }
     public short? Colaboracion { get; set; }
     public int Total { get; set; }
+
+    // Ponderadas (promedio entre Director, Adjunto 1 y Adjunto 2 que hayan evaluado)
+    public decimal? PonderadaInvestigacionAcademica { get; set; }
+    public decimal? PonderadaPensamientoCritico     { get; set; }
+    public decimal? PonderadaOratoria               { get; set; }
+    public decimal? PonderadaArgumentacion          { get; set; }
+    public decimal? PonderadaRedaccion              { get; set; }
+    public decimal? PonderadaNegociacion            { get; set; }
+    public decimal? PonderadaResolucionConflictos   { get; set; }
+    public decimal? PonderadaLiderazgo              { get; set; }
+    public decimal? PonderadaColaboracion           { get; set; }
+    public decimal  PonderadaTotal                  { get; set; }
+
+    /// <summary>"Director" | "Adjunto1" | "Adjunto2" | "EyC" | null</summary>
+    public string? RolEnComision { get; set; }
+
+    /// <summary>true si puede colocar calificaciones (Director, Adj1, Adj2).</summary>
+    public bool EsEvaluador { get; set; }
 }

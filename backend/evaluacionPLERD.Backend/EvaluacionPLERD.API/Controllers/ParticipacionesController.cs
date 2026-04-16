@@ -1,10 +1,12 @@
 using EvaluacionPLERD.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluacionPLERD.API.Controllers;
 
 [ApiController]
 [Route("api/participantes/{idParticipante:int}/participaciones")]
+[Authorize(Roles = "Voluntario")]
 public class ParticipacionesController(IParticipacionService service) : ControllerBase
 {
     [HttpGet]

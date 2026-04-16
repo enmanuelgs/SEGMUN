@@ -17,3 +17,4 @@ C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\Evaluacio
 C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Infrastructure\obj\Debug\net9.0\EvaluacionPLERD.Infrastructure.pdb
 C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Infrastructure\obj\Debug\net9.0\EvaluacionPLERD.Infrastructure.genruntimeconfig.cache
 C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Infrastructure\obj\Debug\net9.0\ref\EvaluacionPLERD.Infrastructure.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Infrastructure\obj\Debug\net9.0\EvaluacionPLERD.Infrastructure.sourcelink.json

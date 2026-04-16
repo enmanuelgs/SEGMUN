@@ -11,7 +11,7 @@ public class PaseListaResponseDto
     public int IdSesionTrabajo { get; set; }
     public int IdParticipante { get; set; }
     public string NumSesionTrabajo { get; set; } = null!;
-    public string? NumeracionPLERD { get; set; }
+    public string? Numeracion { get; set; }
     public string NombreParticipante { get; set; } = null!;
     public string EstadoPresencia { get; set; } = null!;
 }

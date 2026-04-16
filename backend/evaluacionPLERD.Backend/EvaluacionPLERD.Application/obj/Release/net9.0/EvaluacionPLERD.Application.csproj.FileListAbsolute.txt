@@ -1,0 +1,16 @@
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\bin\Release\net9.0\EvaluacionPLERD.Application.deps.json
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\bin\Release\net9.0\EvaluacionPLERD.Application.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\bin\Release\net9.0\EvaluacionPLERD.Application.pdb
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\bin\Release\net9.0\EvaluacionPLERD.Domain.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\bin\Release\net9.0\EvaluacionPLERD.Domain.pdb
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.csproj.AssemblyReference.cache
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.AssemblyInfoInputs.cache
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.AssemblyInfo.cs
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.csproj.CoreCompileInputs.cache
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.sourcelink.json
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\Evaluaci.BE9905B0.Up2Date
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\refint\EvaluacionPLERD.Application.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\EvaluacionPLERD.Application.pdb
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Release\net9.0\ref\EvaluacionPLERD.Application.dll

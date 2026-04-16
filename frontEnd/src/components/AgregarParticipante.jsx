@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { crearParticipante } from '../services/api';
 
 export default function AgregarParticipante({ modeloActivo, onCerrar, onAgregado }) {
-  const [form, setForm] = useState({ numeracionPLERD: '', nombres: '', apellidos: '' });
+  const [form, setForm] = useState({ numeracion: '', representacion: '', nombres: '', apellidos: '', centroEducativo: '' });
   const [error, setError] = useState('');
   const [exito, setExito] = useState(false);
   const [cargando, setCargando] = useState(false);
@@ -27,11 +27,13 @@ export default function AgregarParticipante({ modeloActivo, onCerrar, onAgregado
     try {
       await crearParticipante({
         idModelo:        modeloActivo.id,
-        numeracionPLERD: form.numeracionPLERD.trim() || null,
+        numeracion:      form.numeracion.trim() || null,
+        representacion:  form.representacion.trim() || null,
         nombres:         form.nombres.trim(),
         apellidos:       form.apellidos.trim(),
+        centroEducativo: form.centroEducativo.trim() || null,
       });
-      setForm({ numeracionPLERD: '', nombres: '', apellidos: '' });
+      setForm({ numeracion: '', representacion: '', nombres: '', apellidos: '', centroEducativo: '' });
       setExito(true);
       onAgregado?.();
     } catch (err) {
@@ -74,14 +76,38 @@ export default function AgregarParticipante({ modeloActivo, onCerrar, onAgregado
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label text-secondary small text-uppercase fw-semibold">
-                  Numeración PLERD
+                  Numeración
                 </label>
                 <input
-                  name="numeracionPLERD"
-                  value={form.numeracionPLERD}
+                  name="numeracion"
+                  value={form.numeracion}
                   onChange={handleChange}
                   className="form-control bg-dark text-light border-secondary"
-                  placeholder="Ej: PLERD-001"
+                  placeholder="Ej: DEL-001"
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label text-secondary small text-uppercase fw-semibold">
+                  Representación
+                </label>
+                <input
+                  name="representacion"
+                  value={form.representacion}
+                  onChange={handleChange}
+                  className="form-control bg-dark text-light border-secondary"
+                  placeholder="Ej: Colombia"
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label text-secondary small text-uppercase fw-semibold">
+                  Centro Educativo
+                </label>
+                <input
+                  name="centroEducativo"
+                  value={form.centroEducativo}
+                  onChange={handleChange}
+                  className="form-control bg-dark text-light border-secondary"
+                  placeholder="Ej: Colegio Nacional Lima"
                 />
               </div>
               <div className="mb-3">

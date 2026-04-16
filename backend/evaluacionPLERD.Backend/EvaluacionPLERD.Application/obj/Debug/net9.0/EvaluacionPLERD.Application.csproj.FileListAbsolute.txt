@@ -13,3 +13,4 @@ C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\Evaluacio
 C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Debug\net9.0\refint\EvaluacionPLERD.Application.dll
 C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Debug\net9.0\EvaluacionPLERD.Application.pdb
 C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Debug\net9.0\ref\EvaluacionPLERD.Application.dll
+C:\Users\enman\Desktop\evaluacionPLERD\backend\evaluacionPLERD.Backend\EvaluacionPLERD.Application\obj\Debug\net9.0\EvaluacionPLERD.Application.sourcelink.json

@@ -1,10 +1,72 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "EvaluacionPLERD.API",
-    "version": "1.0"
+    "title": "EvaluacionPLERD API",
+    "version": "v1"
   },
   "paths": {
+    "/api/auth/organizador/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginOrganizadorDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginOrganizadorDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginOrganizadorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/voluntario/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginVoluntarioDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginVoluntarioDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginVoluntarioDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/participantes/{idParticipante}/calificaciones": {
       "get": {
         "tags": [
@@ -57,6 +119,379 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/EditarCalificacionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/comisiones/{idComision}/delegados": {
+      "get": {
+        "tags": [
+          "ComisionDelegados"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ComisionDelegados"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsignarDelegadoDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsignarDelegadoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsignarDelegadoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/comisiones/{idComision}/delegados/{idParticipante}": {
+      "delete": {
+        "tags": [
+          "ComisionDelegados"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idParticipante",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/modelos/{idModelo}/comisiones": {
+      "get": {
+        "tags": [
+          "Comisiones"
+        ],
+        "parameters": [
+          {
+            "name": "idModelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Comisiones"
+        ],
+        "parameters": [
+          {
+            "name": "idModelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearComisionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearComisionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearComisionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/modelos/{idModelo}/comisiones/{id}": {
+      "get": {
+        "tags": [
+          "Comisiones"
+        ],
+        "parameters": [
+          {
+            "name": "idModelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Comisiones"
+        ],
+        "parameters": [
+          {
+            "name": "idModelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarComisionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarComisionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarComisionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Comisiones"
+        ],
+        "parameters": [
+          {
+            "name": "idModelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/comisiones/{idComision}/calificaciones-finales": {
+      "get": {
+        "tags": [
+          "DelegadoCalificaciones"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/comisiones/{idComision}/calificaciones-finales/participante/{idParticipante}": {
+      "get": {
+        "tags": [
+          "DelegadoCalificaciones"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idParticipante",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "DelegadoCalificaciones"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idParticipante",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarDelegadoCalificacionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarDelegadoCalificacionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarDelegadoCalificacionDto"
               }
             }
           }
@@ -131,6 +566,69 @@
         }
       }
     },
+    "/api/comisiones/{idComision}/mesa-directiva": {
+      "get": {
+        "tags": [
+          "MesaDirectiva"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MesaDirectiva"
+        ],
+        "parameters": [
+          {
+            "name": "idComision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsignarMesaDirectivaDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsignarMesaDirectivaDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AsignarMesaDirectivaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Modelos": {
       "get": {
         "tags": [
@@ -194,9 +692,174 @@
           }
         }
       },
+      "put": {
+        "tags": [
+          "Modelos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearModeloDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearModeloDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearModeloDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "delete": {
         "tags": [
           "Modelos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Organizadores": {
+      "get": {
+        "tags": [
+          "Organizadores"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Organizadores"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearOrganizadorDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearOrganizadorDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearOrganizadorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Organizadores/{id}": {
+      "get": {
+        "tags": [
+          "Organizadores"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Organizadores"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarOrganizadorDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarOrganizadorDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarOrganizadorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Organizadores"
         ],
         "parameters": [
           {
@@ -300,6 +963,14 @@
             }
           },
           {
+            "name": "idComision",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
             "name": "nombres",
             "in": "query",
             "schema": {
@@ -314,7 +985,7 @@
             }
           },
           {
-            "name": "numeracionPLERD",
+            "name": "numeracion",
             "in": "query",
             "schema": {
               "type": "string"
@@ -608,16 +1279,235 @@
           }
         }
       }
+    },
+    "/api/Voluntarios": {
+      "get": {
+        "tags": [
+          "Voluntarios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Voluntarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearVoluntarioDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearVoluntarioDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearVoluntarioDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Voluntarios/{id}": {
+      "get": {
+        "tags": [
+          "Voluntarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Voluntarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarVoluntarioDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarVoluntarioDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarVoluntarioDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Voluntarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "ActualizarDelegadoCalificacionDto": {
+        "required": [
+          "cFinal"
+        ],
+        "type": "object",
+        "properties": {
+          "cFinal": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "ActualizarPaseListaDto": {
         "type": "object",
         "properties": {
           "estadoPresencia": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AsignarDelegadoDto": {
+        "required": [
+          "idParticipante"
+        ],
+        "type": "object",
+        "properties": {
+          "idComision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idParticipante": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "representacion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AsignarMesaDirectivaDto": {
+        "type": "object",
+        "properties": {
+          "idComision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idDirector": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idAdjunto1": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idAdjunto2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idEyC": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearComisionDto": {
+        "required": [
+          "maxParticipantes",
+          "nombreComision"
+        ],
+        "type": "object",
+        "properties": {
+          "idModelo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nombreComision": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxParticipantes": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -639,6 +1529,47 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
+          },
+          "fechaCelebracion": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearOrganizadorDto": {
+        "required": [
+          "cargo",
+          "contrasena",
+          "idVoluntario",
+          "regional"
+        ],
+        "type": "object",
+        "properties": {
+          "idVoluntario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "regional": {
+            "maxLength": 2,
+            "minLength": 1,
+            "type": "string"
+          },
+          "distrito": {
+            "maxLength": 5,
+            "type": "string",
+            "nullable": true
+          },
+          "cargo": {
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
+          "contrasena": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -655,7 +1586,21 @@
             "type": "integer",
             "format": "int32"
           },
-          "numeracionPLERD": {
+          "idComision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "numeracion": {
+            "type": "string",
+            "nullable": true
+          },
+          "noRegistro": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "representacion": {
             "type": "string",
             "nullable": true
           },
@@ -666,6 +1611,36 @@
           "apellidos": {
             "minLength": 1,
             "type": "string"
+          },
+          "numeroTelefono": {
+            "maxLength": 17,
+            "type": "string",
+            "nullable": true
+          },
+          "correo": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
+          },
+          "regional": {
+            "maxLength": 2,
+            "type": "string",
+            "nullable": true
+          },
+          "distrito": {
+            "maxLength": 5,
+            "type": "string",
+            "nullable": true
+          },
+          "centroEducativo": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          },
+          "llaveUnica": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -681,6 +1656,62 @@
           "numSesionTrabajo": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearVoluntarioDto": {
+        "required": [
+          "categoria",
+          "contrasena",
+          "correoElectronico",
+          "distrito",
+          "nombreCompleto",
+          "numeroTelefonico",
+          "regional",
+          "sexo"
+        ],
+        "type": "object",
+        "properties": {
+          "nombreCompleto": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "contrasena": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "sexo": {
+            "maxLength": 10,
+            "minLength": 1,
+            "type": "string"
+          },
+          "categoria": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "regional": {
+            "maxLength": 2,
+            "minLength": 1,
+            "type": "string"
+          },
+          "distrito": {
+            "maxLength": 5,
+            "minLength": 1,
+            "type": "string"
+          },
+          "correoElectronico": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "numeroTelefonico": {
+            "maxLength": 20,
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -754,10 +1785,54 @@
         },
         "additionalProperties": false
       },
+      "EditarComisionDto": {
+        "type": "object",
+        "properties": {
+          "nombreComision": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          },
+          "maxParticipantes": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "EditarFeedbackDto": {
         "type": "object",
         "properties": {
           "comentario": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditarOrganizadorDto": {
+        "type": "object",
+        "properties": {
+          "regional": {
+            "maxLength": 2,
+            "type": "string",
+            "nullable": true
+          },
+          "distrito": {
+            "maxLength": 5,
+            "type": "string",
+            "nullable": true
+          },
+          "cargo": {
+            "maxLength": 60,
+            "type": "string",
+            "nullable": true
+          },
+          "contrasena": {
+            "maxLength": 50,
             "type": "string",
             "nullable": true
           }
@@ -772,7 +1847,21 @@
             "format": "int32",
             "nullable": true
           },
-          "numeracionPLERD": {
+          "idComision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "numeracion": {
+            "type": "string",
+            "nullable": true
+          },
+          "noRegistro": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "representacion": {
             "type": "string",
             "nullable": true
           },
@@ -783,10 +1872,129 @@
           "apellidos": {
             "type": "string",
             "nullable": true
+          },
+          "numeroTelefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "correo": {
+            "type": "string",
+            "nullable": true
+          },
+          "regional": {
+            "type": "string",
+            "nullable": true
+          },
+          "distrito": {
+            "type": "string",
+            "nullable": true
+          },
+          "centroEducativo": {
+            "type": "string",
+            "nullable": true
+          },
+          "llaveUnica": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditarVoluntarioDto": {
+        "type": "object",
+        "properties": {
+          "nombreCompleto": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          },
+          "contrasena": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
+          },
+          "sexo": {
+            "maxLength": 10,
+            "type": "string",
+            "nullable": true
+          },
+          "categoria": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
+          },
+          "regional": {
+            "maxLength": 2,
+            "type": "string",
+            "nullable": true
+          },
+          "distrito": {
+            "maxLength": 5,
+            "type": "string",
+            "nullable": true
+          },
+          "correoElectronico": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
+          },
+          "numeroTelefonico": {
+            "maxLength": 20,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginOrganizadorDto": {
+        "required": [
+          "contrasena",
+          "nombreCompleto"
+        ],
+        "type": "object",
+        "properties": {
+          "nombreCompleto": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contrasena": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginVoluntarioDto": {
+        "required": [
+          "contrasena",
+          "nombreCompleto"
+        ],
+        "type": "object",
+        "properties": {
+          "nombreCompleto": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contrasena": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Ingresa el token JWT. Ejemplo: Bearer {token}",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

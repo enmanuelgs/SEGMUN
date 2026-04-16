@@ -1,11 +1,13 @@
 using EvaluacionPLERD.Application.DTOs;
 using EvaluacionPLERD.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluacionPLERD.API.Controllers;
 
 [ApiController]
 [Route("api/sesionestrabajo")]
+[Authorize(Roles = "Voluntario")]
 public class SesionesTrabajoController(ISesionTrabajoService service) : ControllerBase
 {
     [HttpGet]

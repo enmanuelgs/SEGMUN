@@ -9,6 +9,8 @@ public class CrearModeloDto
 
     [Range(1900, 2100)]
     public short? AnioEdicion { get; set; }
+
+    public DateOnly? FechaCelebracion { get; set; }
 }
 
 public class ModeloResponseDto
@@ -17,5 +19,6 @@ public class ModeloResponseDto
     public string? Distrito { get; set; }
     public string? Regional { get; set; }
     public short? AnioEdicion { get; set; }
+    public DateOnly? FechaCelebracion { get; set; }
     public int TotalParticipantes { get; set; }
 }

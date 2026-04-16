@@ -27,7 +27,7 @@ export default function ExportarFeedbacks({ modeloActivo }) {
 
       const separador = '─'.repeat(60);
       const lineas = conFeedback.map(({ participante: p, comentario }) => {
-        const plerd = p.numeracionPLERD ? `[${p.numeracionPLERD}] ` : '';
+        const plerd = p.numeracion ? `[${p.numeracion}] ` : '';
         return [`${plerd}${p.nombres} ${p.apellidos}`, comentario, separador].join('\n');
       });
 
@@ -37,7 +37,7 @@ export default function ExportarFeedbacks({ modeloActivo }) {
         : 'Todos los modelos';
 
       const contenido = [
-        'FEEDBACKS — SISTEMA DE EVALUACIÓN PLERD',
+        'FEEDBACKS — SISTEMA DE EVALUACIÓN',
         encabezado,
         `Generado el ${fecha}`,
         separador, '',
@@ -51,7 +51,7 @@ export default function ExportarFeedbacks({ modeloActivo }) {
         ? [modeloActivo.distrito, modeloActivo.regional, modeloActivo.anioEdicion].filter(Boolean)
         : [];
       a.href     = url;
-      a.download = `feedbacks_${partes.join('_') || 'PLERD'}.txt`;
+      a.download = `feedbacks_${partes.join('_') || 'evaluacion'}.txt`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {

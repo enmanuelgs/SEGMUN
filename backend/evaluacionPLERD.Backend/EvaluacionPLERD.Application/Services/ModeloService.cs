@@ -27,22 +27,38 @@ public class ModeloService(IModeloRepository repository) : IModeloService
 
         var modelo = new Modelo
         {
-            Distrito    = dto.Distrito,
-            Regional    = dto.Regional,
-            AnioEdicion = dto.AnioEdicion,
+            Distrito          = dto.Distrito,
+            Regional          = dto.Regional,
+            AnioEdicion       = dto.AnioEdicion,
+            FechaCelebracion  = dto.FechaCelebracion,
         };
         var creado = await repository.CreateAsync(modelo);
         return ToDto(creado);
+    }
+
+    public async Task<ModeloResponseDto?> UpdateAsync(int id, CrearModeloDto dto)
+    {
+        var modelo = await repository.GetByIdAsync(id);
+        if (modelo is null) return null;
+
+        modelo.Distrito         = dto.Distrito;
+        modelo.Regional         = dto.Regional;
+        modelo.AnioEdicion      = dto.AnioEdicion;
+        modelo.FechaCelebracion = dto.FechaCelebracion;
+
+        await repository.UpdateAsync(modelo);
+        return ToDto(modelo);
     }
 
     public async Task DeleteAsync(int id) => await repository.DeleteAsync(id);
 
     private static ModeloResponseDto ToDto(Modelo m) => new()
     {
-        Id                 = m.Id,
-        Distrito           = m.Distrito,
-        Regional           = m.Regional,
-        AnioEdicion        = m.AnioEdicion,
+        Id                = m.Id,
+        Distrito          = m.Distrito,
+        Regional          = m.Regional,
+        AnioEdicion       = m.AnioEdicion,
+        FechaCelebracion  = m.FechaCelebracion,
         TotalParticipantes = m.Participantes.Count,
     };
 }

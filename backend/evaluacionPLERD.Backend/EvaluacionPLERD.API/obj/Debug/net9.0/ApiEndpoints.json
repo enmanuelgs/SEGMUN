@@ -1,5 +1,195 @@
 [
   {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.AuthController",
+    "Method": "LoginOrganizador",
+    "RelativePath": "api/auth/organizador/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.LoginOrganizadorDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.AuthController",
+    "Method": "LoginVoluntario",
+    "RelativePath": "api/auth/voluntario/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.LoginVoluntarioDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.DelegadoCalificacionesController",
+    "Method": "GetByComision",
+    "RelativePath": "api/comisiones/{idComision}/calificaciones-finales",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.DelegadoCalificacionesController",
+    "Method": "GetByParticipante",
+    "RelativePath": "api/comisiones/{idComision}/calificaciones-finales/participante/{idParticipante}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.DelegadoCalificacionesController",
+    "Method": "Actualizar",
+    "RelativePath": "api/comisiones/{idComision}/calificaciones-finales/participante/{idParticipante}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.ActualizarDelegadoCalificacionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionDelegadosController",
+    "Method": "GetByComision",
+    "RelativePath": "api/comisiones/{idComision}/delegados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionDelegadosController",
+    "Method": "Asignar",
+    "RelativePath": "api/comisiones/{idComision}/delegados",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.AsignarDelegadoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionDelegadosController",
+    "Method": "Remover",
+    "RelativePath": "api/comisiones/{idComision}/delegados/{idParticipante}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idParticipante",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.MesaDirectivaController",
+    "Method": "GetByComision",
+    "RelativePath": "api/comisiones/{idComision}/mesa-directiva",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.MesaDirectivaController",
+    "Method": "AsignarOActualizar",
+    "RelativePath": "api/comisiones/{idComision}/mesa-directiva",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComision",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.AsignarMesaDirectivaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EvaluacionPLERD.API.Controllers.ModelosController",
     "Method": "GetAll",
     "RelativePath": "api/Modelos",
@@ -43,8 +233,213 @@
   },
   {
     "ContainingType": "EvaluacionPLERD.API.Controllers.ModelosController",
+    "Method": "Editar",
+    "RelativePath": "api/Modelos/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.CrearModeloDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ModelosController",
     "Method": "Eliminar",
     "RelativePath": "api/Modelos/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionesController",
+    "Method": "GetAll",
+    "RelativePath": "api/modelos/{idModelo}/comisiones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idModelo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionesController",
+    "Method": "Crear",
+    "RelativePath": "api/modelos/{idModelo}/comisiones",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idModelo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.CrearComisionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionesController",
+    "Method": "GetById",
+    "RelativePath": "api/modelos/{idModelo}/comisiones/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idModelo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionesController",
+    "Method": "Editar",
+    "RelativePath": "api/modelos/{idModelo}/comisiones/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idModelo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.EditarComisionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.ComisionesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/modelos/{idModelo}/comisiones/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idModelo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.OrganizadoresController",
+    "Method": "GetAll",
+    "RelativePath": "api/Organizadores",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.OrganizadoresController",
+    "Method": "Crear",
+    "RelativePath": "api/Organizadores",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.CrearOrganizadorDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.OrganizadoresController",
+    "Method": "GetById",
+    "RelativePath": "api/Organizadores/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.OrganizadoresController",
+    "Method": "Editar",
+    "RelativePath": "api/Organizadores/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.EditarOrganizadorDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.OrganizadoresController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Organizadores/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -71,6 +466,11 @@
         "IsRequired": false
       },
       {
+        "Name": "idComision",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
         "Name": "nombres",
         "Type": "System.String",
         "IsRequired": false
@@ -81,7 +481,7 @@
         "IsRequired": false
       },
       {
-        "Name": "numeracionPLERD",
+        "Name": "numeracion",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -373,6 +773,85 @@
     "ContainingType": "EvaluacionPLERD.API.Controllers.SesionesTrabajoController",
     "Method": "Delete",
     "RelativePath": "api/sesionestrabajo/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.VoluntariosController",
+    "Method": "GetAll",
+    "RelativePath": "api/Voluntarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.VoluntariosController",
+    "Method": "Crear",
+    "RelativePath": "api/Voluntarios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.CrearVoluntarioDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.VoluntariosController",
+    "Method": "GetById",
+    "RelativePath": "api/Voluntarios/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.VoluntariosController",
+    "Method": "Editar",
+    "RelativePath": "api/Voluntarios/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EvaluacionPLERD.Application.DTOs.EditarVoluntarioDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.VoluntariosController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Voluntarios/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

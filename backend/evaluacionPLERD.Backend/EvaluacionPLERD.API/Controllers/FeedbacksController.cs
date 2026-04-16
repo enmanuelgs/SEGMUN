@@ -1,11 +1,13 @@
 using EvaluacionPLERD.Application.DTOs;
 using EvaluacionPLERD.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluacionPLERD.API.Controllers;
 
 [ApiController]
 [Route("api/participantes/{idParticipante:int}/feedback")]
+[Authorize(Roles = "Voluntario")]
 public class FeedbacksController(IFeedbackService service) : ControllerBase
 {
     [HttpGet]

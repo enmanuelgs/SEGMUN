@@ -3,6 +3,7 @@ import { getParticipantes, getCalificaciones, getParticipaciones, getPaseLista }
 import FilaParticipante from './FilaParticipante';
 import FeedbackModal from './FeedbackModal';
 import AgregarParticipante from './AgregarParticipante';
+import PanelDerecho from './PanelDerecho';
 
 const ORDEN_OPCIONES = [
   { value: 'ninguno',              label: 'Sin ordenar' },
@@ -27,7 +28,9 @@ export default function TablaParticipantes({ modeloActivo, sesionActiva }) {
     if (!modeloActivo) { setParticipantes([]); setExtras({}); return; }
     setCargando(true);
     try {
-      const lista = await getParticipantes({ idModelo: modeloActivo.id });
+      const filtros = { idModelo: modeloActivo.id };
+      if (modeloActivo.idComision) filtros.idComision = modeloActivo.idComision;
+      const lista = await getParticipantes(filtros);
       setParticipantes(lista);
       const extrasData = await Promise.all(
         lista.map(async p => {
@@ -74,7 +77,7 @@ export default function TablaParticipantes({ modeloActivo, sesionActiva }) {
       return (
         p.nombres.toLowerCase().includes(q) ||
         p.apellidos.toLowerCase().includes(q) ||
-        (p.numeracionPLERD ?? '').toLowerCase().includes(q)
+        (p.numeracion ?? '').toLowerCase().includes(q)
       );
     })
     .sort((a, b) => {
@@ -89,18 +92,22 @@ export default function TablaParticipantes({ modeloActivo, sesionActiva }) {
 
   if (!modeloActivo) {
     return (
-      <div className="card bg-dark border-secondary shadow">
-        <div className="card-body p-5 text-center">
-          <p className="text-secondary fs-5 mb-0">
-            Selecciona un modelo desde la barra superior para ver sus participantes.
-          </p>
+      <div className="d-flex gap-3 align-items-start">
+        <div className="card bg-dark border-secondary shadow flex-grow-1">
+          <div className="card-body p-5 text-center">
+            <p className="text-secondary fs-5 mb-0">
+              Selecciona un modelo desde la barra superior para ver sus participantes.
+            </p>
+          </div>
         </div>
+        <PanelDerecho participantes={[]} extras={{}} />
       </div>
     );
   }
 
   return (
-    <div className="card bg-dark border-secondary shadow">
+    <div className="d-flex gap-3 align-items-start">
+    <div className="card bg-dark border-secondary shadow flex-grow-1">
       <div className="card-body p-4">
 
         <div className="d-flex justify-content-between align-items-center mb-4">
@@ -122,7 +129,7 @@ export default function TablaParticipantes({ modeloActivo, sesionActiva }) {
             <input
               type="text"
               className="form-control bg-dark text-light border-secondary"
-              placeholder="Buscar por nombre, apellido o PLERD..."
+              placeholder="Buscar por nombre, apellido o numeración..."
               value={busqueda}
               onChange={e => setBusqueda(e.target.value)}
             />
@@ -156,6 +163,7 @@ export default function TablaParticipantes({ modeloActivo, sesionActiva }) {
               participante={p}
               onAbrirFeedback={setModalFeedback}
               onDatosActualizados={() => setVersion(v => v + 1)}
+              onEliminado={() => setVersion(v => v + 1)}
             />
           ))
         )}
@@ -175,6 +183,8 @@ export default function TablaParticipantes({ modeloActivo, sesionActiva }) {
           onAgregado={() => setVersion(v => v + 1)}
         />
       )}
+    </div>
+    <PanelDerecho participantes={participantes} extras={extras} />
     </div>
   );
 }

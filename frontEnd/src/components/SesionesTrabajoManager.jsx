@@ -83,8 +83,8 @@ function PaseListaPanel({ sesion, onCerrar }) {
                   <div key={p.idParticipante}
                        className="list-group-item bg-dark border-secondary text-light d-flex justify-content-between align-items-center py-2">
                     <div>
-                      {p.numeracionPLERD && (
-                        <span className="badge bg-secondary me-2">{p.numeracionPLERD}</span>
+                      {p.numeracion && (
+                        <span className="badge bg-secondary me-2">{p.numeracion}</span>
                       )}
                       <span>{p.nombreParticipante}</span>
                     </div>
@@ -127,6 +127,7 @@ export default function SesionesTrabajoManager({ modeloActivo, sesionActiva, onC
   const [creando, setCreando]         = useState(false);
   const [nuevoNombre, setNuevoNombre] = useState('');
   const [error, setError]             = useState('');
+  const [quorumError, setQuorumError] = useState('');
   const [sesionPaseActiva, setSesionPaseActiva] = useState(null); // la sesión cuyo pase se está viendo
 
   const cargar = useCallback(async () => {
@@ -155,17 +156,17 @@ export default function SesionesTrabajoManager({ modeloActivo, sesionActiva, onC
   }
 
   function handleActivar(s, esActiva) {
+    setQuorumError('');
     if (esActiva) { onCambiarSesion(null); return; }
 
     const asistentes = s.presentes + s.tardanzas;
     const quorum = Math.ceil((2 / 3) * s.totalParticipantes);
 
     if (s.totalParticipantes > 0 && asistentes < quorum) {
-      alert(
-        `No hay quórum suficiente.\n\n` +
-        `Asistentes: ${asistentes} (presentes + tardanzas)\n` +
-        `Requerido: ${quorum} (2/3 de ${s.totalParticipantes} participantes)\n\n` +
-        `Faltan ${quorum - asistentes} participante${quorum - asistentes !== 1 ? 's' : ''} para alcanzar quórum.`
+      setQuorumError(
+        `Sin quórum en "${s.numSesionTrabajo}": ` +
+        `${asistentes} asistentes, se necesitan ${quorum} (2/3 de ${s.totalParticipantes}). ` +
+        `Faltan ${quorum - asistentes}.`
       );
       return;
     }
@@ -216,7 +217,8 @@ export default function SesionesTrabajoManager({ modeloActivo, sesionActiva, onC
           </button>
         </form>
 
-        {error && <div className="alert alert-danger py-2 small mb-3">{error}</div>}
+        {error      && <div className="alert alert-danger  py-2 small mb-3">{error}</div>}
+        {quorumError && <div className="alert alert-warning py-2 small mb-3">{quorumError}</div>}
 
         {cargando ? (
           <div className="d-flex align-items-center gap-2 text-secondary">
@@ -252,7 +254,9 @@ export default function SesionesTrabajoManager({ modeloActivo, sesionActiva, onC
                       <button
                         className={`btn btn-sm ${esActiva ? 'btn-primary' : 'btn-outline-primary'}`}
                         onClick={() => handleActivar(s, esActiva)}
-                        title={esActiva ? 'Desactivar filtro' : 'Activar filtro en Participantes'}
+                        title={esActiva
+                          ? 'Desactivar filtro de sesión'
+                          : `Activar sesión (requiere quórum: 2/3 de ${s.totalParticipantes} participantes = ${Math.ceil(2/3 * s.totalParticipantes)})`}
                       >
                         {esActiva ? 'Activa ✓' : 'Activar'}
                       </button>

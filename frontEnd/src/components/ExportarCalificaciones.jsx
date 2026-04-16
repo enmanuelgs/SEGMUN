@@ -31,7 +31,7 @@ export default function ExportarCalificaciones({ modeloActivo }) {
         const cal  = calRes.status  === 'fulfilled' ? calRes.value  : null;
         const part = partRes.status === 'fulfilled' ? partRes.value : null;
         return {
-          'PLERD':           p.numeracionPLERD ?? '',
+          'Numeración':      p.numeracion ?? '',
           'Nombres':         p.nombres,
           'Apellidos':       p.apellidos,
           ...Object.fromEntries(CRITERIOS.map(c => [c.label, cal?.[c.key] ?? ''])),
@@ -43,7 +43,7 @@ export default function ExportarCalificaciones({ modeloActivo }) {
   }
 
   function nombreArchivo(ext) {
-    if (!modeloActivo) return `calificaciones_PLERD.${ext}`;
+    if (!modeloActivo) return `calificaciones.${ext}`;
     const partes = [modeloActivo.distrito, modeloActivo.regional, modeloActivo.anioEdicion].filter(Boolean);
     return `calificaciones_${partes.join('_') || `modelo${modeloActivo.id}`}.${ext}`;
   }

@@ -26,6 +26,12 @@ public class ModeloRepository(AppDbContext db) : IModeloRepository
         return modelo;
     }
 
+    public async Task UpdateAsync(Modelo modelo)
+    {
+        db.Modelos.Update(modelo);
+        await db.SaveChangesAsync();
+    }
+
     public async Task DeleteAsync(int id)
     {
         var modelo = await db.Modelos.FindAsync(id);
