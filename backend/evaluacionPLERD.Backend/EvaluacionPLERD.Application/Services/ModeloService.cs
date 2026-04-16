@@ -52,13 +52,31 @@ public class ModeloService(IModeloRepository repository) : IModeloService
 
     public async Task DeleteAsync(int id) => await repository.DeleteAsync(id);
 
+    public async Task<IEnumerable<ModeloResponseDto>> GetByVoluntarioIdAsync(int voluntarioId)
+    {
+        var modelos = await repository.GetByVoluntarioIdAsync(voluntarioId);
+        return modelos.Select(ToDto);
+    }
+
+    public async Task<IEnumerable<ModeloResponseDto>> GetByRegionalAsync(string regional)
+    {
+        var modelos = await repository.GetByRegionalAsync(regional);
+        return modelos.Select(ToDto);
+    }
+
+    public async Task<IEnumerable<ModeloResponseDto>> GetByDistritoAsync(string regional, string distrito)
+    {
+        var modelos = await repository.GetByDistritoAsync(regional, distrito);
+        return modelos.Select(ToDto);
+    }
+
     private static ModeloResponseDto ToDto(Modelo m) => new()
     {
-        Id                = m.Id,
-        Distrito          = m.Distrito,
-        Regional          = m.Regional,
-        AnioEdicion       = m.AnioEdicion,
-        FechaCelebracion  = m.FechaCelebracion,
+        Id                 = m.Id,
+        Distrito           = m.Distrito,
+        Regional           = m.Regional,
+        AnioEdicion        = m.AnioEdicion,
+        FechaCelebracion   = m.FechaCelebracion,
         TotalParticipantes = m.Participantes.Count,
     };
 }

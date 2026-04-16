@@ -29,5 +29,6 @@ public class AuthResponseDto
     public string? Regional   { get; set; }
     public string? Distrito   { get; set; }
     public string? Cargo      { get; set; }
+    public bool   EsSuperuser { get; set; }
     public DateTime Expira    { get; set; }
 }

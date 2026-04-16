@@ -13,5 +13,6 @@ public class PaseListaResponseDto
     public string NumSesionTrabajo { get; set; } = null!;
     public string? Numeracion { get; set; }
     public string NombreParticipante { get; set; } = null!;
+    public string? Representacion { get; set; }
     public string EstadoPresencia { get; set; } = null!;
 }

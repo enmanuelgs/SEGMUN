@@ -863,5 +863,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EvaluacionPLERD.API.Controllers.VoluntariosController",
+    "Method": "GetModelosPorVoluntario",
+    "RelativePath": "api/Voluntarios/{id}/modelos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

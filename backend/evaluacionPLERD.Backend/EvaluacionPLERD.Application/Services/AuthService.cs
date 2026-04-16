@@ -20,18 +20,25 @@ public class AuthService(
         if (organizador.Contrasena != dto.Contrasena)
             throw new UnauthorizedAccessException("Credenciales inválidas.");
 
-        var (token, expira) = jwtService.GenerarToken(organizador.Id, voluntario.NombreCompleto, "Organizador");
+        var (token, expira) = jwtService.GenerarTokenOrganizador(
+            organizador.Id,
+            voluntario.NombreCompleto,
+            organizador.Regional,
+            organizador.Distrito,
+            organizador.Cargo,
+            organizador.EsSuperuser);
 
         return new AuthResponseDto
         {
-            Token    = token,
-            Rol      = "Organizador",
-            Id       = organizador.Id,
-            Nombre   = voluntario.NombreCompleto,
-            Regional = organizador.Regional,
-            Distrito = organizador.Distrito,
-            Cargo    = organizador.Cargo,
-            Expira   = expira,
+            Token       = token,
+            Rol         = "Organizador",
+            Id          = organizador.Id,
+            Nombre      = voluntario.NombreCompleto,
+            Regional    = organizador.Regional,
+            Distrito    = organizador.Distrito,
+            Cargo       = organizador.Cargo,
+            EsSuperuser = organizador.EsSuperuser,
+            Expira      = expira,
         };
     }
 

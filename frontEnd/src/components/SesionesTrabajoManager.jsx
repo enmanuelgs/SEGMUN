@@ -13,6 +13,7 @@ function PaseListaPanel({ sesion, onCerrar }) {
   const [pases, setPases]       = useState([]);
   const [cargando, setCargando] = useState(true);
   const [guardando, setGuardando] = useState(null); // idParticipante en guardado
+  const [orden, setOrden]       = useState('nombre'); // 'nombre' | 'representacion'
 
   const cargar = useCallback(async () => {
     setCargando(true);
@@ -42,6 +43,18 @@ function PaseListaPanel({ sesion, onCerrar }) {
   const tardanzas  = pases.filter(p => p.estadoPresencia === 'Tardanza').length;
   const ausentes   = pases.filter(p => p.estadoPresencia === 'Ausente').length;
 
+  const pasesOrdenados = [...pases].sort((a, b) => {
+    if (orden === 'representacion') {
+      const repA = (a.representacion || '').toLowerCase();
+      const repB = (b.representacion || '').toLowerCase();
+      if (repA < repB) return -1;
+      if (repA > repB) return 1;
+    }
+    const nomA = (a.nombreParticipante || '').toLowerCase();
+    const nomB = (b.nombreParticipante || '').toLowerCase();
+    return nomA.localeCompare(nomB);
+  });
+
   return (
     <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.7)' }} onClick={onCerrar}>
       <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
@@ -60,14 +73,24 @@ function PaseListaPanel({ sesion, onCerrar }) {
           </div>
 
           <div className="modal-body">
-            <div className="d-flex gap-2 mb-3">
-              <span className="text-secondary small me-1 align-self-center">Marcar todos:</span>
-              {ESTADOS.map(e => (
-                <button key={e} className={`btn btn-sm btn-outline-${ESTADO_VARIANT[e]}`}
-                        onClick={() => marcarTodos(e)}>
-                  {e}
-                </button>
-              ))}
+            <div className="d-flex flex-wrap gap-2 mb-3 justify-content-between align-items-center">
+              <div>
+                <span className="text-secondary small me-1">Marcar todos:</span>
+                {ESTADOS.map(e => (
+                  <button key={e} className={`btn btn-sm btn-outline-${ESTADO_VARIANT[e]} me-1`}
+                          onClick={() => marcarTodos(e)}>
+                    {e}
+                  </button>
+                ))}
+              </div>
+              <div className="d-flex align-items-center gap-1">
+                <span className="text-secondary small">Ordenar por:</span>
+                <select className="form-select form-select-sm bg-dark text-light border-secondary"
+                  value={orden} onChange={e => setOrden(e.target.value)} style={{ width: '150px' }}>
+                  <option value="nombre">Nombre (A-Z)</option>
+                  <option value="representacion">Representación (A-Z)</option>
+                </select>
+              </div>
             </div>
 
             {cargando ? (
@@ -79,14 +102,24 @@ function PaseListaPanel({ sesion, onCerrar }) {
               <p className="text-secondary fst-italic">No hay participantes en esta sesión.</p>
             ) : (
               <div className="list-group list-group-flush">
-                {pases.map(p => (
+                {pasesOrdenados.map(p => (
                   <div key={p.idParticipante}
                        className="list-group-item bg-dark border-secondary text-light d-flex justify-content-between align-items-center py-2">
                     <div>
                       {p.numeracion && (
                         <span className="badge bg-secondary me-2">{p.numeracion}</span>
                       )}
-                      <span>{p.nombreParticipante}</span>
+                      {orden === 'representacion' && p.representacion ? (
+                        <>
+                          <span className="fw-semibold">{p.representacion}</span>
+                          <span className="text-secondary ms-2 small">({p.nombreParticipante})</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>{p.nombreParticipante}</span>
+                          {p.representacion && <span className="text-secondary ms-2 small">({p.representacion})</span>}
+                        </>
+                      )}
                     </div>
                     <div className="d-flex gap-1">
                       {ESTADOS.map(estado => (

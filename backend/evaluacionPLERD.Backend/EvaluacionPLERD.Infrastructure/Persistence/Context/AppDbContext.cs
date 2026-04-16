@@ -139,8 +139,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             e.Property(o => o.Regional).HasColumnName("regional").IsRequired().HasMaxLength(2);
             e.Property(o => o.Distrito).HasColumnName("distrito").HasMaxLength(5);
             e.Property(o => o.IdVoluntario).HasColumnName("idvoluntario").IsRequired();
-            e.Property(o => o.Cargo).HasColumnName("cargo").IsRequired().HasMaxLength(60);
+            e.Property(o => o.Cargo).HasColumnName("cargo").IsRequired().HasMaxLength(70);
             e.Property(o => o.Contrasena).HasColumnName("contrasena").IsRequired().HasMaxLength(50);
+            e.Property(o => o.EsSuperuser).HasColumnName("essuperuser").HasDefaultValue(false);
 
             e.HasIndex(o => o.IdVoluntario).IsUnique();
 

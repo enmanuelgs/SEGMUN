@@ -37,6 +37,7 @@ public class OrganizadorService(
             Distrito     = dto.Distrito,
             Cargo        = dto.Cargo,
             Contrasena   = dto.Contrasena,
+            EsSuperuser  = dto.EsSuperuser,
         };
 
         var creado = await repository.CreateAsync(organizador);
@@ -53,6 +54,7 @@ public class OrganizadorService(
         if (dto.Distrito is not null)                    organizador.Distrito   = dto.Distrito;
         if (!string.IsNullOrWhiteSpace(dto.Cargo))       organizador.Cargo      = dto.Cargo;
         if (!string.IsNullOrWhiteSpace(dto.Contrasena))  organizador.Contrasena = dto.Contrasena;
+        if (dto.EsSuperuser.HasValue)                    organizador.EsSuperuser = dto.EsSuperuser.Value;
 
         await repository.UpdateAsync(organizador);
         return true;
@@ -75,5 +77,6 @@ public class OrganizadorService(
         IdVoluntario     = o.IdVoluntario,
         NombreVoluntario = o.Voluntario?.NombreCompleto ?? string.Empty,
         Cargo            = o.Cargo,
+        EsSuperuser      = o.EsSuperuser,
     };
 }

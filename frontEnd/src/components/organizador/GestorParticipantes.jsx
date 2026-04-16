@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getModelos, getParticipantes, crearParticipante, editarParticipante, eliminarParticipante } from '../../services/api';
-
-function formatDistrito(val) {
-  const clean = val.replace(/-/g, '');
-  if (/^\d{4}$/.test(clean)) return `${clean.slice(0, 2)}-${clean.slice(2)}`;
-  return val;
-}
+import { formatTelefono, formatDistrito } from '../../utils/formatters';
 
 const vacioPara = (modelo) => ({
   nombres: '', apellidos: '', numeracion: '',
@@ -13,9 +8,9 @@ const vacioPara = (modelo) => ({
   regional: modelo?.regional ?? '', distrito: modelo?.distrito ?? '', llaveUnica: '',
 });
 
-export default function GestorParticipantes() {
+export default function GestorParticipantes({ superuser = true }) {
   const [modelos, setModelos]    = useState([]);
-  const [idModelo, setIdModelo]  = useState('');
+  const [idModelo, setIdModelo]  = useState(() => localStorage.getItem('gp_idModelo') || '');
   const [modeloActual, setModeloActual] = useState(null);
   const [participantes, setPart] = useState([]);
   const [form, setForm]          = useState(vacioPara(null));
@@ -24,7 +19,20 @@ export default function GestorParticipantes() {
   const [error, setError]        = useState('');
   const [cargando, setCargando]  = useState(false);
 
-  useEffect(() => { getModelos().then(setModelos).catch(() => {}); }, []);
+  useEffect(() => { 
+    getModelos().then(res => {
+      setModelos(res);
+      if (idModelo) {
+        const m = res.find(x => String(x.id) === String(idModelo));
+        if (m) setModeloActual(m);
+        cargar(idModelo);
+      }
+    }).catch(() => {}); 
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('gp_idModelo', idModelo);
+  }, [idModelo]);
 
   async function cargar(id) {
     if (!id) { setPart([]); return; }
@@ -74,15 +82,19 @@ export default function GestorParticipantes() {
     catch (err) { setError(err.message); }
   }
 
-  const campo = (key, placeholder, requerido = false, opts = {}) => (
-    <input className="form-control form-control-sm bg-dark text-light border-secondary"
-      placeholder={placeholder} value={form[key]}
-      onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-      onBlur={opts.formatDistrito ? e => {
-        const fmt = formatDistrito(e.target.value);
-        setForm(f => ({ ...f, [key]: fmt }));
-      } : undefined}
-      required={requerido} />
+  const campo = (key, label, requerido = false, opts = {}) => (
+    <>
+      <label className="form-label text-secondary mb-1" style={{ fontSize: '0.75rem' }}>{label}</label>
+      <input className="form-control form-control-sm bg-dark text-light border-secondary"
+        placeholder={label} value={form[key]}
+        onChange={e => {
+          let val = e.target.value;
+          if (opts.formatTelefono) val = formatTelefono(val);
+          if (opts.formatDistrito) val = formatDistrito(val);
+          setForm(f => ({ ...f, [key]: val }));
+        }}
+        required={requerido} />
+    </>
   );
 
   const filtrados = participantes.filter(p => {
@@ -110,25 +122,25 @@ export default function GestorParticipantes() {
       {idModelo && (
         <>
           <form onSubmit={handleGuardar} className="card bg-dark border-secondary p-3 mb-4">
-            <h6 className="text-secondary mb-2">{editando ? 'Editar participante' : 'Nuevo participante'}</h6>
-            <div className="row g-2">
-              <div className="col-md-3">{campo('nombres', 'Nombres', true)}</div>
-              <div className="col-md-3">{campo('apellidos', 'Apellidos', true)}</div>
-              <div className="col-md-3">{campo('numeracion', 'Numeración')}</div>
-              <div className="col-md-4">{campo('centroEducativo', 'Centro Educativo')}</div>
-              <div className="col-md-3">{campo('numeroTelefono', 'Teléfono')}</div>
-              <div className="col-md-3">{campo('correo', 'Correo')}</div>
-              <div className="col-md-2">{campo('regional', 'Regional')}</div>
-              <div className="col-md-2">{campo('distrito', 'Distrito', false, { formatDistrito: true })}</div>
-              <div className="col-md-2">{campo('llaveUnica', 'Llave única')}</div>
-            </div>
-            {error && <div className="alert alert-danger py-1 small mt-2 mb-0">{error}</div>}
-            <div className="d-flex gap-2 mt-3">
-              <button type="submit" className="btn btn-primary btn-sm" disabled={cargando}>
-                {editando ? 'Guardar cambios' : '+ Crear Participante'}
-              </button>
-              {editando && <button type="button" className="btn btn-outline-secondary btn-sm" onClick={cancelar}>Cancelar</button>}
-            </div>
+              <h6 className="text-secondary mb-2">{editando ? 'Editar participante' : 'Nuevo participante'}</h6>
+              <div className="row g-2">
+                <div className="col-md-3">{campo('nombres', 'Nombres', true)}</div>
+                <div className="col-md-3">{campo('apellidos', 'Apellidos', true)}</div>
+                <div className="col-md-3">{campo('numeracion', 'Numeración')}</div>
+                <div className="col-md-4">{campo('centroEducativo', 'Centro Educativo')}</div>
+                <div className="col-md-3">{campo('numeroTelefono', 'Teléfono', false, { formatTelefono: true })}</div>
+                <div className="col-md-3">{campo('correo', 'Correo')}</div>
+                <div className="col-md-2">{campo('regional', 'Regional')}</div>
+                <div className="col-md-2">{campo('distrito', 'Distrito', false, { formatDistrito: true })}</div>
+                <div className="col-md-2">{campo('llaveUnica', 'Llave única')}</div>
+              </div>
+              {error && <div className="alert alert-danger py-1 small mt-2 mb-0">{error}</div>}
+              <div className="d-flex gap-2 mt-3">
+                <button type="submit" className="btn btn-primary btn-sm" disabled={cargando}>
+                  {editando ? 'Guardar cambios' : '+ Crear Participante'}
+                </button>
+                {editando && <button type="button" className="btn btn-outline-secondary btn-sm" onClick={cancelar}>Cancelar</button>}
+              </div>
           </form>
 
           <input className="form-control bg-dark text-light border-secondary mb-3"

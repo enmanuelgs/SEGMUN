@@ -38,6 +38,7 @@ export const eliminarModelo = (id) => request(`/modelos/${id}`, { method: 'DELET
 // ── Voluntarios ───────────────────────────────────────────────────────────────
 export const getVoluntarios     = () => request('/voluntarios');
 export const getVoluntario      = (id) => request(`/voluntarios/${id}`);
+export const getModelosPorVoluntario = (id) => request(`/voluntarios/${id}/modelos`);
 export const crearVoluntario    = (data) => request('/voluntarios', { method: 'POST', body: JSON.stringify(data) });
 export const editarVoluntario   = (id, data) => request(`/voluntarios/${id}`, { method: 'PUT', body: JSON.stringify(data) });
 export const eliminarVoluntario = (id) => request(`/voluntarios/${id}`, { method: 'DELETE' });

@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import { getModelos, crearModelo, editarModelo, eliminarModelo } from '../../services/api';
-
-function formatDistrito(val) {
-  const clean = val.replace(/-/g, '');
-  if (/^\d{4}$/.test(clean)) return `${clean.slice(0, 2)}-${clean.slice(2)}`;
-  return val;
-}
+import { formatDistrito } from '../../utils/formatters';
 
 function derivarRegional(distrito) {
   const m = distrito.match(/^(\d{2})-\d{2}$/);
@@ -20,10 +16,11 @@ function fmtFecha(iso) {
 
 const VACIO = { regional: '', distrito: '', anioEdicion: '', fechaCelebracion: '' };
 
-export default function GestorModelos() {
+export default function GestorModelos({ superuser }) {
+  const { auth } = useAuth();
   const [modelos, setModelos]   = useState([]);
   const [form, setForm]         = useState(VACIO);
-  const [editando, setEditando] = useState(null); // id del modelo que se edita
+  const [editando, setEditando] = useState(null);
   const [error, setError]       = useState('');
   const [cargando, setCargando] = useState(false);
 
@@ -33,6 +30,17 @@ export default function GestorModelos() {
   }
 
   useEffect(() => { cargar(); }, []);
+
+  // Pre-llenar con datos del organizador al abrir el formulario de creación
+  useEffect(() => {
+    if (!editando && !superuser) {
+      setForm(f => ({
+        ...f,
+        regional: auth?.regional ?? f.regional,
+        distrito: auth?.distrito ?? f.distrito,
+      }));
+    }
+  }, [editando, superuser, auth?.regional, auth?.distrito]);
 
   function iniciarEdicion(m) {
     setEditando(m.id);
@@ -47,8 +55,8 @@ export default function GestorModelos() {
 
   function cancelar() { setEditando(null); setForm(VACIO); setError(''); }
 
-  function handleDistritoBlur(e) {
-    const fmt = formatDistrito(e.target.value);
+  function handleDistritoChange(val) {
+    const fmt = formatDistrito(val);
     const reg = derivarRegional(fmt);
     setForm(f => ({ ...f, distrito: fmt, regional: reg || f.regional }));
   }
@@ -81,23 +89,37 @@ export default function GestorModelos() {
     catch (err) { setError(err.message); }
   }
 
+  // Campo deshabilitado para admins no-superuser (su regional/distrito es fijo)
+  const campoFijo = (key, label, placeholder) => (
+    <div className="col-md-2">
+      <label className="form-label text-secondary mb-1" style={{ fontSize: '0.75rem' }}>{label}</label>
+      <input
+        className="form-control bg-dark text-light border-secondary"
+        placeholder={placeholder}
+        value={form[key]}
+        onChange={e => {
+          let val = e.target.value;
+          if (key === 'distrito') {
+            val = formatDistrito(val);
+            const reg = derivarRegional(val);
+            setForm(f => ({ ...f, distrito: val, regional: reg || f.regional }));
+          } else {
+            setForm(f => ({ ...f, [key]: val }));
+          }
+        }}
+        disabled={!superuser && !editando}
+        style={!superuser && !editando ? { opacity: 0.6, cursor: 'not-allowed' } : {}}
+      />
+    </div>
+  );
+
   return (
     <div>
       <h5 className="text-light mb-3">{editando ? 'Editar Modelo' : 'Modelos'}</h5>
 
       <form onSubmit={handleGuardar} className="row g-2 mb-4 align-items-end">
-        <div className="col-md-2">
-          <label className="form-label text-secondary mb-1" style={{ fontSize: '0.75rem' }}>Regional</label>
-          <input className="form-control bg-dark text-light border-secondary" placeholder="ej: 15"
-            value={form.regional} onChange={e => setForm(f => ({ ...f, regional: e.target.value }))} />
-        </div>
-        <div className="col-md-2">
-          <label className="form-label text-secondary mb-1" style={{ fontSize: '0.75rem' }}>Distrito</label>
-          <input className="form-control bg-dark text-light border-secondary" placeholder="ej: 15-03"
-            value={form.distrito}
-            onChange={e => setForm(f => ({ ...f, distrito: e.target.value }))}
-            onBlur={handleDistritoBlur} />
-        </div>
+        {campoFijo('regional', 'Regional', 'ej: 15')}
+        {campoFijo('distrito', 'Distrito', 'ej: 15-03')}
         <div className="col-md-1">
           <label className="form-label text-secondary mb-1" style={{ fontSize: '0.75rem' }}>Año</label>
           <input type="number" className="form-control bg-dark text-light border-secondary" placeholder="2026"
@@ -135,7 +157,7 @@ export default function GestorModelos() {
               <tr key={m.id} className={editando === m.id ? 'table-primary' : ''}>
                 <td className="text-secondary">{m.id}</td>
                 <td>{m.regional ?? '—'}</td>
-                <td>{m.distrito ?? '—'}</td>
+                <td>{m.distrito ?? <span className="badge bg-info text-dark">Regional</span>}</td>
                 <td>{m.anioEdicion ?? '—'}</td>
                 <td>
                   {m.fechaCelebracion
@@ -147,8 +169,10 @@ export default function GestorModelos() {
                   <div className="d-flex gap-1">
                     <button className="btn btn-outline-primary btn-sm py-0"
                       onClick={() => iniciarEdicion(m)}>Editar</button>
-                    <button className="btn btn-outline-danger btn-sm py-0"
-                      onClick={() => handleEliminar(m.id)}>Eliminar</button>
+                    {superuser && (
+                      <button className="btn btn-outline-danger btn-sm py-0"
+                        onClick={() => handleEliminar(m.id)}>Eliminar</button>
+                    )}
                   </div>
                 </td>
               </tr>

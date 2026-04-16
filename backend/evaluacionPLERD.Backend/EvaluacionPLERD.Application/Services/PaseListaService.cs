@@ -32,6 +32,7 @@ public class PaseListaService(IPaseListaRepository repo) : IPaseListaService
         NumSesionTrabajo   = p.NumSesionTrabajo,
         Numeracion         = p.Numeracion,
         NombreParticipante = p.NombreParticipante,
+        Representacion     = p.Participante?.Representacion,
         EstadoPresencia    = p.EstadoPresencia,
     };
 }

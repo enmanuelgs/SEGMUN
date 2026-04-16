@@ -3,12 +3,51 @@ import { getModelos, getComisiones, crearComision, editarComision, eliminarComis
          getVoluntarios, getMesaDirectiva, asignarMesaDirectiva,
          getParticipantes, asignarDelegado, removerDelegado, getDelegadosComision } from '../../services/api';
 
+function BuscadorModal({ show, opciones, onCerrar, onSelect, titulo }) {
+  const [q, setQ] = useState('');
+  if (!show) return null;
+
+  const filtrados = opciones.filter(o => o.label.toLowerCase().includes(q.toLowerCase()));
+
+  return (
+    <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 1060 }} onClick={onCerrar}>
+      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable" onClick={e => e.stopPropagation()}>
+        <div className="modal-content bg-dark border-secondary text-light" style={{ maxHeight: '80vh' }}>
+          <div className="modal-header border-secondary py-2">
+            <h6 className="modal-title m-0">{titulo}</h6>
+            <button className="btn-close btn-close-white" onClick={onCerrar} />
+          </div>
+          <div className="modal-body p-2 d-flex flex-column" style={{ minHeight: '300px' }}>
+            <input className="form-control bg-dark text-light border-secondary mb-2"
+              autoFocus placeholder="Escribe para buscar..."
+              value={q} onChange={e => setQ(e.target.value)} />
+            <div className="list-group list-group-flush rounded border border-secondary flex-grow-1" style={{ overflowY: 'auto' }}>
+              <button className="list-group-item list-group-item-action bg-dark text-secondary text-center"
+                 onClick={() => { onSelect(''); onCerrar(); }}>— Sin asignar / Quitar —</button>
+              {filtrados.map(o => (
+                <button key={o.value} type="button" 
+                  className="list-group-item list-group-item-action bg-dark text-light border-secondary"
+                  onClick={() => { onSelect(o.value); onCerrar(); }}>
+                  {o.label}
+                </button>
+              ))}
+              {filtrados.length === 0 && <div className="p-3 text-center text-secondary small">Sin resultados</div>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TabMesaDirectiva({ comision }) {
   const [mesa, setMesa]           = useState(null);
   const [voluntarios, setVols]    = useState([]);
   const [form, setForm]           = useState({ idDirector: '', idAdjunto1: '', idAdjunto2: '', idEyC: '' });
   const [error, setError]         = useState('');
   const [guardando, setGuardando] = useState(false);
+
+  const [modalCampo, setModalCampo] = useState(null); // 'idDirector', 'idAdjunto1', etc.
 
   useEffect(() => {
     getVoluntarios().then(setVols).catch(() => {});
@@ -38,24 +77,35 @@ function TabMesaDirectiva({ comision }) {
     finally { setGuardando(false); }
   }
 
-  const selectVol = (campo, label) => (
-    <div className="col-md-6">
-      <label className="form-label text-secondary small">{label}</label>
-      <select className="form-select form-select-sm bg-dark text-light border-secondary"
-        value={form[campo]} onChange={e => setForm(f => ({ ...f, [campo]: e.target.value }))}>
-        <option value="">— Sin asignar —</option>
-        {voluntarios.map(v => <option key={v.id} value={v.id}>{v.nombreCompleto}</option>)}
-      </select>
-    </div>
-  );
+  const opcionesVoluntarios = voluntarios.map(v => ({ value: v.id, label: v.nombreCompleto }));
+
+  const btnAsignar = (campo, label) => {
+    const seleccionado = voluntarios.find(v => String(v.id) === String(form[campo]));
+    return (
+      <div className="col-md-6">
+        <label className="form-label text-secondary small">{label}</label>
+        <button type="button" className="btn btn-outline-secondary w-100 text-start text-truncate bg-dark text-light border-secondary"
+          onClick={() => setModalCampo({ campo, label })}>
+          {seleccionado ? seleccionado.nombreCompleto : '— Seleccionar —'}
+        </button>
+      </div>
+    );
+  };
 
   return (
     <form onSubmit={handleGuardar}>
+      <BuscadorModal 
+        show={!!modalCampo} 
+        titulo={modalCampo ? `Seleccionar ${modalCampo.label}` : ''}
+        opciones={opcionesVoluntarios} 
+        onCerrar={() => setModalCampo(null)} 
+        onSelect={val => setForm(f => ({ ...f, [modalCampo.campo]: val }))} 
+      />
       <div className="row g-2 mb-3">
-        {selectVol('idDirector', 'Director')}
-        {selectVol('idAdjunto1', 'Adjunto 1')}
-        {selectVol('idAdjunto2', 'Adjunto 2')}
-        {selectVol('idEyC',      'Educación y Capacitación (EyC)')}
+        {btnAsignar('idDirector', 'Director')}
+        {btnAsignar('idAdjunto1', 'Adjunto 1')}
+        {btnAsignar('idAdjunto2', 'Adjunto 2')}
+        {btnAsignar('idEyC',      'Educación y Capacitación (EyC)')}
       </div>
       {error && <div className="alert alert-danger py-1 small mb-2">{error}</div>}
       <button type="submit" className="btn btn-primary btn-sm" disabled={guardando}>Guardar mesa directiva</button>
@@ -77,6 +127,7 @@ function TabDelegados({ comision, idModelo, todasComisiones, onRefrescar }) {
   const [idSel, setIdSel]                 = useState('');
   const [repSel, setRepSel]               = useState('');
   const [error, setError]                 = useState('');
+  const [BuscandoDelegado, setBuscandoDelegado] = useState(false);
 
   async function cargar() {
     // Carga delegados de esta comisión y todos los participantes del modelo en paralelo
@@ -127,18 +178,24 @@ function TabDelegados({ comision, idModelo, todasComisiones, onRefrescar }) {
   const asignadosIds = new Set(delegados.map(d => d.idParticipante));
   // Excluir: ya en esta comisión O ya en otra comisión del modelo
   const disponibles  = participantes.filter(p => !asignadosIds.has(p.id) && !todosAsignados.has(p.id));
+  const participanteSeleccionado = participantes.find(p => String(p.id) === String(idSel));
 
   return (
     <div>
+      <BuscadorModal
+        show={BuscandoDelegado}
+        titulo="Seleccionar Participante"
+        opciones={disponibles.map(p => ({ value: p.id, label: `${p.apellidos}, ${p.nombres}` }))}
+        onCerrar={() => setBuscandoDelegado(false)}
+        onSelect={val => setIdSel(val)}
+      />
+
       <div className="row g-2 mb-3">
         <div className="col-md-5">
-          <select className="form-select form-select-sm bg-dark text-light border-secondary"
-            value={idSel} onChange={e => setIdSel(e.target.value)}>
-            <option value="">— Seleccionar participante —</option>
-            {disponibles.map(p => (
-              <option key={p.id} value={p.id}>{p.apellidos}, {p.nombres}</option>
-            ))}
-          </select>
+          <button type="button" className="btn btn-outline-secondary w-100 text-start text-truncate bg-dark text-light border-secondary"
+            onClick={() => setBuscandoDelegado(true)}>
+            {participanteSeleccionado ? `${participanteSeleccionado.apellidos}, ${participanteSeleccionado.nombres}` : '— Seleccionar participante —'}
+          </button>
         </div>
         <div className="col-md-4">
           <input className="form-control form-control-sm bg-dark text-light border-secondary"
@@ -185,17 +242,34 @@ function TabDelegados({ comision, idModelo, todasComisiones, onRefrescar }) {
   );
 }
 
-export default function GestorComisiones() {
+export default function GestorComisiones({ superuser = true }) {
   const [modelos, setModelos]         = useState([]);
-  const [idModelo, setIdModelo]       = useState('');
+  
+  // Persistencia con localStorage inicializando el estado si existe
+  const [idModelo, setIdModelo]       = useState(() => localStorage.getItem('gc_idModelo') || '');
+  const [comisionSel, setComisionSel] = useState(() => {
+    const sel = localStorage.getItem('gc_comisionSel');
+    return sel ? JSON.parse(sel) : null;
+  });
+  const [subTab, setSubTab]           = useState(() => localStorage.getItem('gc_subTab') || 'mesa');
+  
   const [comisiones, setComisiones]   = useState([]);
-  const [comisionSel, setComisionSel] = useState(null);
-  const [subTab, setSubTab]           = useState('mesa');
   const [form, setForm]               = useState({ nombreComision: '', maxParticipantes: '' });
   const [error, setError]             = useState('');
   const [cargando, setCargando]       = useState(false);
 
-  useEffect(() => { getModelos().then(setModelos).catch(() => {}); }, []);
+  // Hook para guardar en localStorage cuando cambian
+  useEffect(() => {
+    localStorage.setItem('gc_idModelo', idModelo);
+    localStorage.setItem('gc_subTab', subTab);
+    if (comisionSel) localStorage.setItem('gc_comisionSel', JSON.stringify(comisionSel));
+    else localStorage.removeItem('gc_comisionSel');
+  }, [idModelo, subTab, comisionSel]);
+
+  useEffect(() => { 
+    getModelos().then(setModelos).catch(() => {});
+    if (idModelo) cargarComisiones(idModelo);
+  }, []);
 
   async function cargarComisiones(id) {
     try {
@@ -258,19 +332,21 @@ export default function GestorComisiones() {
 
       {idModelo && (
         <>
-          <form onSubmit={handleCrear} className="row g-2 mb-3">
-            <div className="col-md-5">
-              <input className="form-control bg-dark text-light border-secondary" placeholder="Nombre de la comisión"
-                value={form.nombreComision} onChange={e => setForm(f => ({ ...f, nombreComision: e.target.value }))} required />
-            </div>
-            <div className="col-md-3">
-              <input type="number" min="1" className="form-control bg-dark text-light border-secondary" placeholder="Máx. participantes"
-                value={form.maxParticipantes} onChange={e => setForm(f => ({ ...f, maxParticipantes: e.target.value }))} required />
-            </div>
-            <div className="col-md-4">
-              <button className="btn btn-primary w-100" disabled={cargando}>+ Crear Comisión</button>
-            </div>
-          </form>
+          <form onSubmit={handleCrear} className="row g-2 mb-3 align-items-end">
+              <div className="col-md-5">
+                <label className="form-label text-secondary mb-1" style={{ fontSize: '0.75rem' }}>Nombre de la comisión</label>
+                <input className="form-control bg-dark text-light border-secondary" placeholder="Ej: Asamblea General"
+                  value={form.nombreComision} onChange={e => setForm(f => ({ ...f, nombreComision: e.target.value }))} required />
+              </div>
+              <div className="col-md-3">
+                <label className="form-label text-secondary mb-1" style={{ fontSize: '0.75rem' }}>Máx. participantes</label>
+                <input type="number" min="1" className="form-control bg-dark text-light border-secondary" placeholder="Ej: 50"
+                  value={form.maxParticipantes} onChange={e => setForm(f => ({ ...f, maxParticipantes: e.target.value }))} required />
+              </div>
+              <div className="col-md-4">
+                <button className="btn btn-primary w-100" disabled={cargando}>+ Crear Comisión</button>
+              </div>
+            </form>
 
           {error && <div className="alert alert-danger py-2 small mb-3">{error}</div>}
 

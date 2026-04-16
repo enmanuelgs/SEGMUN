@@ -19,12 +19,14 @@ public class CrearOrganizadorDto
     /// Secretario/a Proyectos | Secretario/a Comunicaciones | Secretariado Modelo
     /// </summary>
     [Required]
-    [MaxLength(60)]
+    [MaxLength(70)]
     public string Cargo { get; set; } = null!;
 
     [Required]
     [MaxLength(50)]
     public string Contrasena { get; set; } = null!;
+
+    public bool EsSuperuser { get; set; } = false;
 }
 
 public class EditarOrganizadorDto
@@ -35,11 +37,13 @@ public class EditarOrganizadorDto
     [MaxLength(5)]
     public string? Distrito { get; set; }
 
-    [MaxLength(60)]
+    [MaxLength(70)]
     public string? Cargo { get; set; }
 
     [MaxLength(50)]
     public string? Contrasena { get; set; }
+
+    public bool? EsSuperuser { get; set; }
 }
 
 public class OrganizadorResponseDto
@@ -50,4 +54,5 @@ public class OrganizadorResponseDto
     public int     IdVoluntario     { get; set; }
     public string  NombreVoluntario { get; set; } = null!;
     public string  Cargo            { get; set; } = null!;
+    public bool    EsSuperuser      { get; set; }
 }

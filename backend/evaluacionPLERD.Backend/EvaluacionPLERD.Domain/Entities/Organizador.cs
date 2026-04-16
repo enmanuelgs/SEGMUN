@@ -17,5 +17,8 @@ public class Organizador
     public string Cargo { get; set; } = null!;
     public string Contrasena { get; set; } = null!;
 
+    /// <summary>Si es true, tiene acceso total al sistema (superuser).</summary>
+    public bool EsSuperuser { get; set; }
+
     public Voluntario Voluntario { get; set; } = null!;
 }

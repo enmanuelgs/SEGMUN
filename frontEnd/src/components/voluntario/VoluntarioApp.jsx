@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { getModelos, getComisiones, getMesaDirectiva } from '../../services/api';
+import { getModelosPorVoluntario, getComisiones, getMesaDirectiva } from '../../services/api';
 import TablaParticipantes       from '../TablaParticipantes';
 import SesionesTrabajoManager   from '../SesionesTrabajoManager';
 import ExportarCalificaciones   from '../ExportarCalificaciones';
@@ -17,16 +17,35 @@ export default function VoluntarioApp() {
   const { auth, logout } = useAuth();
 
   const [modelos, setModelos]         = useState([]);
+  
+  // Guardamos persistencia en base a IDs cargados y almacenados
+  const [idModActivoStr, setIdModActivoStr] = useState(() => localStorage.getItem('va_idModelo') || '');
+  const [idComActivaStr, setIdComActivaStr] = useState(() => localStorage.getItem('va_idComision') || '');
+  
   const [modeloActivo, setModActivo]  = useState(null);
   const [comisiones, setComisiones]   = useState([]);
-  const [misComisiones, setMisCom]    = useState([]); // donde soy mesa directiva
+  const [misComisiones, setMisCom]    = useState([]); 
   const [comisionActiva, setComAct]   = useState(null);
   const [sesionActiva, setSesAct]     = useState(null);
-  const [tab, setTab]                 = useState('participantes');
+  const [tab, setTab]                 = useState(() => localStorage.getItem('va_tab') || 'participantes');
   const [cargandoCom, setCargandoCom] = useState(false);
 
-  // Cargar todos los modelos al inicio
-  useEffect(() => { getModelos().then(setModelos).catch(() => {}); }, []);
+  useEffect(() => { localStorage.setItem('va_tab', tab); }, [tab]);
+  useEffect(() => { localStorage.setItem('va_idModelo', modeloActivo?.id?.toString() || ''); }, [modeloActivo]);
+  useEffect(() => { localStorage.setItem('va_idComision', comisionActiva?.id?.toString() || ''); }, [comisionActiva]);
+
+  // Cargar los modelos del voluntario al inicio
+  useEffect(() => { 
+    if (auth?.id) {
+      getModelosPorVoluntario(auth.id).then(res => {
+        setModelos(res);
+        if (idModActivoStr) {
+          const m = res.find(x => String(x.id) === idModActivoStr);
+          if (m) setModActivo(m);
+        }
+      }).catch(() => {}); 
+    }
+  }, [auth?.id]);
 
   // Cuando cambia el modelo, cargar sus comisiones y filtrar las mías
   useEffect(() => {
@@ -46,8 +65,10 @@ export default function VoluntarioApp() {
                        m.idAdjunto2 === miId || m.idEyC === miId);
         });
         setMisCom(filtradas);
-        // Auto-seleccionar si solo hay una comisión asignada
-        if (filtradas.length === 1) setComAct(filtradas[0]);
+        // Auto-seleccionar si solo hay una comisión asignada o recuperar la anterior
+        const anterior = filtradas.length ? filtradas.find(x => String(x.id) === idComActivaStr) : coms.find(x => String(x.id) === idComActivaStr);
+        if (anterior) setComAct(anterior);
+        else if (filtradas.length === 1) setComAct(filtradas[0]);
       })
       .catch(() => {})
       .finally(() => setCargandoCom(false));

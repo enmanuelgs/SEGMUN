@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using EvaluacionPLERD.Application.DTOs;
 using EvaluacionPLERD.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +14,27 @@ public class ModelosController(IModeloService service) : ControllerBase
     // GET api/modelos
     [HttpGet]
     public async Task<IActionResult> GetAll()
-        => Ok(await service.GetAllAsync());
+    {
+        // Voluntarios y superusers ven todo
+        var esSuperuser = User.FindFirstValue("EsSuperuser") == "true";
+        var rol         = User.FindFirstValue(ClaimTypes.Role);
+
+        if (esSuperuser || rol == "Voluntario")
+            return Ok(await service.GetAllAsync());
+
+        // Organizador normal: filtrar por su ámbito
+        var regional = User.FindFirstValue("Regional");
+        var distrito = User.FindFirstValue("Distrito");
+
+        if (string.IsNullOrEmpty(regional))
+            return Ok(Enumerable.Empty<ModeloResponseDto>());
+
+        IEnumerable<ModeloResponseDto> modelos = !string.IsNullOrEmpty(distrito)
+            ? await service.GetByDistritoAsync(regional, distrito)   // CELIDER Distrital
+            : await service.GetByRegionalAsync(regional);             // CELIDER Regional
+
+        return Ok(modelos);
+    }
 
     // GET api/modelos/5
     [HttpGet("{id:int}")]

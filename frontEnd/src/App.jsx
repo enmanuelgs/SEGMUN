@@ -10,6 +10,5 @@ export default function App() {
   if (auth.rol === 'Organizador') return <OrganizadorApp />;
   if (auth.rol === 'Voluntario')  return <VoluntarioApp />;
 
-  // Sesión inválida
   return <LoginPage />;
 }

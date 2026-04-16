@@ -1404,6 +1404,29 @@
           }
         }
       }
+    },
+    "/api/Voluntarios/{id}/modelos": {
+      "get": {
+        "tags": [
+          "Voluntarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1562,7 +1585,7 @@
             "nullable": true
           },
           "cargo": {
-            "maxLength": 60,
+            "maxLength": 70,
             "minLength": 1,
             "type": "string"
           },
@@ -1570,6 +1593,9 @@
             "maxLength": 50,
             "minLength": 1,
             "type": "string"
+          },
+          "esSuperuser": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1827,13 +1853,17 @@
             "nullable": true
           },
           "cargo": {
-            "maxLength": 60,
+            "maxLength": 70,
             "type": "string",
             "nullable": true
           },
           "contrasena": {
             "maxLength": 50,
             "type": "string",
+            "nullable": true
+          },
+          "esSuperuser": {
+            "type": "boolean",
             "nullable": true
           }
         },

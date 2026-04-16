@@ -54,4 +54,36 @@ public class ModeloRepository(AppDbContext db) : IModeloRepository
             m.Distrito.ToLower() == d &&
             m.AnioEdicion == anioEdicion);
     }
+
+    public async Task<IEnumerable<Modelo>> GetByVoluntarioIdAsync(int voluntarioId)
+    {
+        return await db.Modelos
+            .Include(m => m.Participantes)
+            .Where(m => m.Comisiones.Any(c => 
+                c.MesaDirectiva != null && (
+                c.MesaDirectiva.IdDirector == voluntarioId ||
+                c.MesaDirectiva.IdAdjunto1 == voluntarioId ||
+                c.MesaDirectiva.IdAdjunto2 == voluntarioId ||
+                c.MesaDirectiva.IdEyC == voluntarioId)))
+            .OrderByDescending(m => m.AnioEdicion)
+            .ThenBy(m => m.Distrito)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Modelo>> GetByRegionalAsync(string regional)
+        => await db.Modelos
+            .Include(m => m.Participantes)
+            .Where(m => m.Regional == regional)
+            .OrderByDescending(m => m.AnioEdicion)
+            .ThenBy(m => m.Distrito)
+            .ToListAsync();
+
+    public async Task<IEnumerable<Modelo>> GetByDistritoAsync(string regional, string distrito)
+        => await db.Modelos
+            .Include(m => m.Participantes)
+            .Where(m => m.Regional == regional &&
+                        (m.Distrito == distrito || m.Distrito == null))
+            .OrderByDescending(m => m.AnioEdicion)
+            .ThenBy(m => m.Distrito)
+            .ToListAsync();
 }

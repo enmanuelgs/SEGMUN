@@ -9,6 +9,7 @@ public class PaseListaRepository(AppDbContext db) : IPaseListaRepository
 {
     public async Task<IEnumerable<PaseLista>> GetBySesionAsync(int idSesionTrabajo) =>
         await db.PasesLista
+            .Include(p => p.Participante)
             .Where(p => p.IdSesionTrabajo == idSesionTrabajo)
             .OrderBy(p => p.NombreParticipante)
             .ToListAsync();
