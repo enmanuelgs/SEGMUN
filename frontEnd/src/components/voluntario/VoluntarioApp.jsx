@@ -96,7 +96,7 @@ export default function VoluntarioApp() {
   const listaComisiones = misComisiones.length ? misComisiones : comisiones;
 
   return (
-    <div className="min-vh-100 bg-dark text-light">
+    <div className="flex-grow-1 bg-dark text-light">
       <nav className="navbar navbar-dark bg-dark border-bottom border-secondary px-4">
         <div className="d-flex align-items-center gap-3 me-4">
           <span className="navbar-brand fw-bold fs-5 mb-0">Sistema de Evaluación</span>
