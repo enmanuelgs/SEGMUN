@@ -13,8 +13,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        var connectionString = BuildConnectionString(configuration);
         services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            options.UseNpgsql(connectionString));
 
         // Repositorios existentes
         services.AddScoped<IModeloRepository, ModeloRepository>();
@@ -36,5 +37,18 @@ public static class DependencyInjection
         services.AddScoped<IJwtService, JwtService>();
 
         return services;
+    }
+
+    private static string BuildConnectionString(IConfiguration configuration)
+    {
+        var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+        if (!string.IsNullOrEmpty(databaseUrl))
+        {
+            // Railway provee DATABASE_URL en formato: postgresql://user:pass@host:port/db
+            var uri = new Uri(databaseUrl);
+            var userInfo = uri.UserInfo.Split(':');
+            return $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+        }
+        return configuration.GetConnectionString("DefaultConnection")!;
     }
 }

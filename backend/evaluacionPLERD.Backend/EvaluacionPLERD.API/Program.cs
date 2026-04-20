@@ -1,7 +1,9 @@
 using System.Text;
 using EvaluacionPLERD.Application;
 using EvaluacionPLERD.Infrastructure;
+using EvaluacionPLERD.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -71,6 +73,13 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Aplica migraciones automáticamente al iniciar
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
